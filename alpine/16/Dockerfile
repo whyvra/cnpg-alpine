@@ -4,11 +4,12 @@ FROM postgres:$PG_BASE_IMAGE
 
 ARG PG_AUDIT_VERSION=REL_16_STABLE \
     PG_FAILOVER_VERSION=v1.1.0 \
-    PGVECTOR_VERSION=v0.7.4 \
+    PGVECTOR_VERSION=v0.8.0 \
     PG_BARMAN_VERSION=3.11.1
 
 # Install build dependencies
-RUN apk add -U --no-cache -t .build-deps1 \
+RUN apk upgrade --no-cache \
+    && apk add -U --no-cache -t .build-deps1 \
 		$DOCKER_PG_LLVM_DEPS \
 		git \
 		build-base \
