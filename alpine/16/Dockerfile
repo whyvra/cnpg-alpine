@@ -1,11 +1,11 @@
-ARG PG_BASE_IMAGE=16.4-alpine
+ARG PG_BASE_IMAGE=16.6-alpine
 
 FROM postgres:$PG_BASE_IMAGE
 
 ARG PG_AUDIT_VERSION=REL_16_STABLE \
     PG_FAILOVER_VERSION=v1.1.0 \
     PGVECTOR_VERSION=v0.8.0 \
-    PG_BARMAN_VERSION=3.11.1
+    PG_BARMAN_VERSION=3.12.1
 
 # Install build dependencies
 RUN apk upgrade --no-cache \
@@ -50,7 +50,7 @@ RUN apk upgrade --no-cache \
 		--wheel-dir .dist \
 		--output-fd 3 3>&1 >&2 \
 	&& python3 -m installer -d "/" .dist/*.whl \
-	&& cp doc/barman.conf /etc \
+	&& cp docs/barman.conf /etc \
 	# Remove source files and build deps
 	&& cd / \
 	&& rm -rf /pgaudit /pg_failover_slots /pgvector /barman \
